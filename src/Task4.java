@@ -15,41 +15,37 @@ public class Task4 {
         Random random = new Random();
         int car1speed = random.nextInt(maxSpeed - minSpeed + 1) + minSpeed;
         int car2speed = random.nextInt(maxSpeed - minSpeed + 1) + minSpeed;
-        Thread car1 = new Thread() {
-            public void run() {
-                while (car1distance < distance && car2distance < distance) {
-                    car1distance = car1distance + car1speed;
-                    System.out.println("Car 1 is at the " + car1distance + " mark");
-                    try {
-                        Thread.sleep(1000);
-                    }
-                    catch (InterruptedException e) {
-                        System.out.println("Error " + e);
-                    }
+        Thread car1 = new Thread(() -> {
+            while (car1distance < distance && car2distance < distance) {
+                car1distance = car1distance + car1speed;
+                System.out.println("Car 1 is at the " + car1distance + " mark");
+                try {
+                    Thread.sleep(1000);
                 }
-                if (car1distance >= 50) {
-                    System.out.println("Car 1 wins the race!");
+                catch (InterruptedException e) {
+                    System.out.println("Error " + e);
                 }
             }
-        };
+            if (car1distance >= 50) {
+                System.out.println("Car 1 wins the race!");
+            }
+        });
 
-        Thread car2 = new Thread() {
-            public void run() {
-                while (car2distance < distance && car1distance < distance) {
-                    car2distance = car2distance + car2speed;
-                    System.out.println("Car 2 is at the " + car2distance + " mark");
-                    try {
-                        Thread.sleep(1000);
-                    }
-                    catch (InterruptedException e) {
-                        System.out.println("Error " + e);
-                    }
+        Thread car2 = new Thread(() -> {
+            while (car2distance < distance && car1distance < distance) {
+                car2distance = car2distance + car2speed;
+                System.out.println("Car 2 is at the " + car2distance + " mark");
+                try {
+                    Thread.sleep(1000);
                 }
-                if (car2distance >= 50) {
-                    System.out.println("Car 2 wins the race!");
+                catch (InterruptedException e) {
+                    System.out.println("Error " + e);
                 }
             }
-        };
+            if (car2distance >= 50) {
+                System.out.println("Car 2 wins the race!");
+            }
+        });
 
         car1.start();
         car2.start();
